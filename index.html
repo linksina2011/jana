@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العد التنازلي لعيد ميلاد جنى 🎂</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b1055, #7597de);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #ff94c2;
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 110px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .label {
+            font-size: 1.1rem;
+            color: #f1f1f1;
+            margin-top: 5px;
+        }
+
+        #message {
+            margin-top: 30px;
+            font-size: 2rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✨ العد التنازلي لعيد ميلاد جنى ✨</h1>
+    <div class="subtitle">كل سنة وأنتِ بألف خير! متبقي على يوم 21 نوفمبر:</div>
+
+    <div class="countdown-container">
+        <div class="time-box">
+            <div class="number" id="days">00</div>
+            <div class="label">يوم</div>
+        </div>
+        <div class="time-box">
+            <div class="number" id="hours">00</div>
+            <div class="label">ساعة</div>
+        </div>
+        <div class="time-box">
+            <div class="number" id="minutes">00</div>
+            <div class="label">دقيقة</div>
+        </div>
+        <div class="time-box">
+            <div class="number" id="seconds">00</div>
+            <div class="label">ثانية</div>
+        </div>
+    </div>
+
+    <div id="message"></div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            let targetYear = now.getFullYear();
+            
+            // تحديد تاريخ 21 نوفمبر (الشهر 11) للسنة الحالية
+            let targetDate = new Date(`November 21, ${targetYear} 00:00:00`);
+
+            // إذا كان يوم 21 نوفمبر قد مر هذا العام، نحسب للسنة القادمة تلقائياً
+            if (now > targetDate) {
+                targetYear++;
+                targetDate = new Date(`November 21, ${targetYear} 00:00:00`);
+            }
+
+            const currentTime = now.getTime();
+            const difference = targetDate.getTime() - currentTime;
+
+            if (difference <= 0) {
+                document.getElementById('message').innerText = "🎉🎂 كل سنة وأنتِ طيبة يا جنى! عيد ميلاد سعيد! 🎈🎁";
+                document.querySelector('.countdown-container').style.display = 'none';
+                document.querySelector('.subtitle').style.display = 'none';
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
